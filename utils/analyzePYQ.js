@@ -10,7 +10,6 @@ function cleanText(text) {
     .slice(0, 7000);
 }
 
-// Extract valid JSON from a markdown code block
 function extractJSONfromCodeBlock(text) {
   const match = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
   if (!match) throw new Error("No valid JSON code block found.");
@@ -30,15 +29,15 @@ export default async function analyzePYQ(buffers) {
     const prompt = `
 You are a smart assistant analyzing university exam papers.
 
-📄 Here's the extracted text from one or more past year papers.
+Here's the extracted text from one or more past year papers.
 
-🎯 Your job:
+Your job:
 - Identify and extract ONLY important and REPEATED questions.
 - Group them by **year** (like 2022, 2023).
 - Inside each year, group by **Unit 1**, **Unit 2**, etc.
 - Also return a separate list of repeated questions overall.
 
-📦 Return response ONLY in valid JSON, in a Markdown code block like this:
+Return response ONLY in valid JSON, in a Markdown code block like this:
 \`\`\`json
 {
   "subject": "${subjectName}",
