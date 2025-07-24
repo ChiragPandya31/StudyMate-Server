@@ -1,17 +1,16 @@
-import pdf from "pdf-parse";
 import { askGroq } from "./groq.js";
 
-// Clean text for AI (removes page headers, university garbage, etc.)
+// Clean the text from PDF
 function cleanText(text) {
   return text
     .replace(/\n\s*\n/g, "\n")
     .replace(/Page\s+\d+/gi, "")
     .replace(/(GTU|University|Examination|Seat No\.?|Enrollment No\.?).*/gi, "")
     .replace(/Total Marks.*|Instructions:.*/gi, "")
-    .slice(0, 7000); // keep prompt size manageable
+    .slice(0, 7000);
 }
 
-// ✅ Extract valid JSON from a code block: ```
+// Extract valid JSON from a markdown code block
 function extractJSONfromCodeBlock(text) {
   const match = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
   if (!match) throw new Error("No valid JSON code block found.");
@@ -19,6 +18,7 @@ function extractJSONfromCodeBlock(text) {
 }
 
 export default async function analyzePYQ(buffers) {
+  const pdf = (await import("pdf-parse")).default;
   const results = {};
 
   for (let { buffer, filename } of buffers) {
@@ -41,24 +41,21 @@ You are a smart assistant analyzing university exam papers.
 📦 Return response ONLY in valid JSON, in a Markdown code block like this:
 \`\`\`json
 {
-  "subject": "Subject Name",
+  "subject": "${subjectName}",
   "repeated_questions": ["Q1", "Q2", ...],
   "years": {
     "2022": {
       "Unit 1": [
         { "question": "Define OS.", "repeated": true },
         { "question": "Explain process scheduling.", "repeated": false }
-      ],
-      "Unit 2": [...]
-    },
-    "2023": {
-      ...
+      ]
     }
   }
 }
 \`\`\`
 
 DO NOT include any explanation, notes or extra text.
+
 Here is the PDF content:
 """
 ${text}
