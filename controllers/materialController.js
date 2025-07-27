@@ -30,7 +30,7 @@ export const createMaterial = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const filePath = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+    const filePath = `https://studymate-server-production.up.railway.app/uploads/${req.file.filename}`;
 
     const newMaterial = new Material({
       title,
