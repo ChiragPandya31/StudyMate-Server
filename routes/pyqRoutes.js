@@ -4,10 +4,15 @@ import { analyzePYQController } from "../controllers/pyqController.js";
 
 const router = express.Router();
 
-// Middleware for file uploads
-router.use(fileUpload({ useTempFiles: false }));
+router.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+    limits: { fileSize: 10 * 1024 * 1024 }, // optional limit: 10MB
+    createParentPath: true,
+  })
+);
 
-// POST /api/pyq/analyze-pyq
 router.post("/analyze-pyq", analyzePYQController);
 
 export default router;
