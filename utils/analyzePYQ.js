@@ -1,6 +1,6 @@
+import pdf from "pdf-parse";
 import { askGroq } from "./groq.js";
 
-// Clean the text from PDF
 function cleanText(text) {
   return text
     .replace(/\n\s*\n/g, "\n")
@@ -17,11 +17,10 @@ function extractJSONfromCodeBlock(text) {
 }
 
 export default async function analyzePYQ(buffers) {
-  const pdf = (await import("pdf-parse")).default;
   const results = {};
 
   for (let { buffer, filename } of buffers) {
-    const data = await pdf(buffer);
+    const data = await pdf(buffer); // FIXED: directly using imported pdf
     const rawText = data.text;
     const text = cleanText(rawText);
     const subjectName = filename.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ");
