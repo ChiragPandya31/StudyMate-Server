@@ -4,12 +4,7 @@ import { analyzePYQController } from "../controllers/pyqController.js";
 
 const router = express.Router();
 
-router.use(
-  fileUpload({
-    useTempFiles: true,
-    tempFileDir: "/tmp/",
-  })
-);
+router.use(fileUpload({ useTempFiles: false }));
 
 router.post("/analyze-pyq", analyzePYQController);
 
