@@ -17,7 +17,8 @@ export const analyzePYQController = async (req, res) => {
   try {
     const result = await analyzePYQ(buffers);
     res.json(result);
-  } catch (err) {
-    res.status(500).json({ error: "Analyzer failed", details: err.message });
-  }
+  }catch (err) {
+  console.error("Analyzer failed:", err);
+  res.status(500).json({ error: "Analyzer failed", details: err.message });
+}
 };
