@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve PDFs from /uploads
-app.use("/uploads", express.static(path.join("uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/download/:filename", (req, res) => {
   const filename = req.params.filename;
