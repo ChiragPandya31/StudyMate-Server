@@ -9,14 +9,13 @@ This is the backend for the StudyMate web app. It handles PDF uploads, AI-powere
 - Express.js
 - MongoDB
 - Multer (for file uploads)
-- Cloudinary (file storage)
 - Groq API (for AI analysis)
 
 --
 
 ## 🧠 Features
 - Upload PDFs and extract patterns using AI
-- Store files in Cloudinary
+- Store files in local storage (temporarily)
 - CRUD APIs for study materials
 - Supports Quiz Battle functionality with Groq AI
 
@@ -27,7 +26,6 @@ This is the backend for the StudyMate web app. It handles PDF uploads, AI-powere
 ### 1. Clone the repo
 ```bash
 git clone https://github.com/ChiragPandya31/StudyMate-server
-cd studymate-server
 ```
 ### 2. Install dependencies
 ```bash
