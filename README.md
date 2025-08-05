@@ -33,7 +33,7 @@ npm install
 ```
 ### 3. Create a .env file
 ```bash
-MONGO_URL= // mongodb-url //
+MONGO_URI= // mongodb-url //
 GROQ_API= // GROQ API KEY //
 PORT = 5000
 ```
@@ -41,3 +41,5 @@ PORT = 5000
 ```bash
 npm run dev
 ```
+
+To see the frontend of studymate visit -https://github.com/ChiragPandya31/StudyMate-client
